@@ -1,0 +1,65 @@
+Store -> Redux -> Dispatch, Selector
+
+Step One : 
+->Explain : install redux and react redux bcz redux is external or individual libraries.
+->Code : npm install @reduxjs/toolkit react-redux
+
+Step Two :
+->Explaing : Create Redux Slice (To write funciton of any individual, like add data in some page) Create feature folder 
+->inside it Create andy file reduxSlice. eg-> counterSlice.js
+->feature (folder)
+-->counterSlice.js(file)
+-->setps(import createSlice -> initialState -> function -> name, initialState, reducers -> funciton Like add,delete ->
+export Function and reducer 
+->Code: 
+	import {createSlice} from '@reduxjs/toolkit'
+	initialState = {
+	value : 0 }, (define initialState)
+	export const functionName = createSlice({
+	name:'janam' (name must be written in is syntax) 
+	initialState,
+	reducers:{
+	(inside reducers apply your contion )
+	addData(state,action) => {}, (where state holds data and action is use to perform some action)
+	removeData(state,action) => {},
+	}
+	export const { addData, removeData } = counterSlice.actions;	
+	export default counterSlice.reducer;
+})
+
+Step Three : 
+->Create Store (Configure the Store) Storefolder -> Store.js(file)
+->Explain: Import configureStore and SliceFile -> create Store
+->Code : 
+	import { configureStore } from '@reduxjs/toolkit';
+	import counterReducer from 'slicefileName';
+
+	const store = configureStore({
+  	reducer: {
+    	 counter: counterReducer,
+  	 },
+	 });
+
+	export default store;
+
+Step Four : 
+->Provide Store To Your App
+->import {Provider} and store -> wrap with <Provider store={store}/>
+->Code: 
+	import { Provider } from 'react-redux';
+	import store from './store';
+
+	<Provider store={store}>
+  	  <App />
+ 	</Provider>
+
+Step Five : 
+->Use Redux State in Your Components
+-> import useSelector(to displydata), useDispatch(for event ) -> import { function like addData, deleteData } from 
+slicefile where you create that funciton.
+->Code : 
+	import { useSelector, useDispatch } from 'react-redux';
+	import { increment, decrement, incrementByAmount } from './features/counterSlice';
+	 const count = useSelector((state) => state.counter.value);
+ 	 const dispatch = useDispatch();
+	<button onClick={() => dispatch(increment())}>Increment</button>(for dispatch)
